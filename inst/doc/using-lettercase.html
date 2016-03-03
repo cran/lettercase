@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Features</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>Mostly this vignette should be unnecessary. The majority of the uses of this 
+package will be simply transform a string according to a simple standard, for 
+example:</p>
+
+<pre><code>&quot;one flew over the cuckoo&#39;s nest&quot; %&gt;% str_title_case  
+&quot;/home/hstruman secret files&quot;     %&gt;% str_spine_case
+&quot;The QUICK brown fox&quot;             %&gt;% str_lower_case
+&quot;first_name&quot;                      %&gt;% str_camel_case
+</code></pre>
+
+<p>Most of the lettercase functions are self-explanatory. Almost every function 
+takes a character/string input (as the first argument) and performs the 
+transformation on the string accordingly. This vignette is probably unnessary, 
+but may be of value as getting better introduced to the package.</p>
+
+<h2>Features</h2>
+
+<p>Lettercase contains functions for formatting:</p>
+
+<ul>
+<li>capitalization </li>
+<li>whitespace and wordbreaks<br/></li>
+<li>punctuation<br/></li>
+</ul>
+
+<p>It works with magrittr/pipeR operators; all transformations take a 
+character/string as the first argument.</p>
+
+<p>Transformations are:</p>
+
+<ul>
+<li>idempotent (all?)</li>
+<li>state functions</li>
+</ul>
+
+<h3>Capitalization Functions</h3>
+
+<p>The following cases affect capitalization only</p>
+
+<ul>
+<li>lower case: <code>str_lower[[_]case]</code></li>
+<li>upper case: <code>str_upper[[_]case]</code></li>
+<li>sentence case: <code>str_sentence_case</code> 
+(Only the first character and characters following punctions marks: . ! ? are capitalized)</li>
+<li>Title Case: <code>str_title_case</code></li>
+</ul>
+
+<h3>Word Breaks and Whitespace</h3>
+
+<p>Word breaks, sentence breaks and whitespace &hellip;</p>
+
+<p>In most <em>Cases</em>, whitespace is defined &hellip;.. </p>
+
+<p>Lettercase also allows definition for how word breaks, line breaks, sentence 
+breaks and white space are treated.</p>
+
+<p>In snake_case, white space is defined by an underscore.
+In spinal-case, white space is a hyphen.</p>
+
+<ul>
+<li><p>functions collapse_whitespace: adjacent whitespace are collapsed into one 
+a single whitespace character.</p></li>
+<li><p>collapse.whitespace</p></li>
+</ul>
+
+<h3>Both capitalization and</h3>
+
+<ul>
+<li>camelCase</li>
+</ul>
+
+<h3>Reverse Transformations</h3>
+
+<p>In general, the formatting transformation are destructive and irrevesible. 
+While classes and attributes can be used to track input data, we felt this was 
+an edge case.  Most of the time, the original strings do not need to be 
+preserved</p>
+
+<h3>Idempotent</h3>
+
+<p>Most functions are idempotent. Multiple application of the same function </p>
+
+<pre><code>F(F(x)) = F(x) 
+</code></pre>
+
+<h3>State Function</h3>
+
+<p>By design lettercase&#39;s transformation are (mostly) state functions independent
+of the order they are appied. For example, </p>
+
+<pre><code>G(F(x)) = F(G(x))
+</code></pre>
+
+</body>
+
+</html>
